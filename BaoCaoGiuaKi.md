@@ -11,7 +11,7 @@
 # 3. Đề xuất hướng nghiên cứu : Searchable Encryption
 
 # 4. Demo:
-  ##a. Đặt vấn đề (Introduction): 
+  ## a. Đặt vấn đề (Introduction): 
    + Tham khảo: Survey of Searchable Encryption
    
    + Why? :  Trong phần Introduction
