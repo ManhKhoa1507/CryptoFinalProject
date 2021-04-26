@@ -6,7 +6,7 @@
    
    + Khoa: SQL, tìm hiểu thuật toán Searchable Encryption, Cryptoanalysis
    
-   + Huy: Tìm hiểu thuật toán Searchable Encryption, Trap door
+   + Huy: Tìm hiểu thuật toán Searchable Encryption, Trap door, Powerpoint
 
 # 3. Đề xuất hướng nghiên cứu : Searchable Encryption
 
@@ -22,8 +22,6 @@
 	
    + Pratical: Có áp dụng vào thực tế hay không ? (Hiện nay được sử dụng ở đâu)
 	
-   + Privacy : ??
-	
   ## b. Ngữ cảnh: 
     Secure the student database
   
@@ -38,6 +36,6 @@
    C/C++(Viết thuật toán), C#(Kết nối với SQL, tạo UI/UX), SQL (Tạo cơ sở dữ liệu)
 
 # 5. Tham khảo:
-   Link: 
+   Link: Endnote
 
 # 6. Github: https://github.com/ManhKhoa1507/CryptoFinalProject
