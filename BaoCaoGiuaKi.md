@@ -24,15 +24,18 @@
 	
    + Privacy : ??
 	
-  ## b. Ngữ cảnh: Secure the student database
+  ## b. Ngữ cảnh: 
+    Secure the student database
   
   ## c. Giải pháp: 
 
    Sử dụng Searchable Encryption để mã hóa
 	
-  ## d. Đề xuất ứng dụng: Tạo một app để demo việc mã hóa cơ sở dữ liệu
+  ## d. Đề xuất ứng dụng: 
+   Tạo một app để demo việc mã hóa cơ sở dữ liệu
 
-  ## e. Ngôn ngữ sử dụng: C/C++(Viết thuật toán), C#(Kết nối với SQL, tạo UI/UX), SQL (Tạo cơ sở dữ liệu)
+  ## e. Ngôn ngữ sử dụng: 
+   C/C++(Viết thuật toán), C#(Kết nối với SQL, tạo UI/UX), SQL (Tạo cơ sở dữ liệu)
 
 # 5. Tham khảo:
    Link: 
