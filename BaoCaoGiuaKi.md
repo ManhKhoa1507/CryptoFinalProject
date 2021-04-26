@@ -1,21 +1,40 @@
-Bối cảnh : 
-     Trong thời đại công nghệ, thông tin cá nhân (họ tên,số điện thoại, mật khẩu, ... ) là những thông tin quan trọng và hết sức nhạy cảm.  Ngày nay, với sự phát triển của công nghệ, mọi thứ đều được số hóa. Nếu ngày trước, mọi thông tin cá nhân được lưu trữ trong tập hồ sơ thì ngày nay các thông tin được số hóa và lưu trữ trên những cơ sở dữ liệu. Chính việc này đã đặt ra một số thách thức đối với việc bảo mật dữ liệu và tìm kiếm thông tin trên dữ liệu đã được mã hóa.
-  
+#1. Tổng quan đề tài:  
+  Mã hóa cơ sở dữ liệu sử dụng Searchable Encryption
+
+#2. Phân công:
+   + An: Kết nối database (C++/ C#), UI/UX, QC
    
-Demo :
-    sử dụng searchable encyption để mã hóa một database về thông tin của sinh viên
+   + Khoa: SQL, tìm hiểu thuật toán Searchable Encryption, Cryptoanalysis
+   
+   + Huy: Tìm hiểu thuật toán Searchable Encryption, Trap door
 
-Giải pháp:
-    Sử dụng searchable encryption để mã hóa và có thể tìm kiếm trên dữ liệu đã được mã hóa 
+#3. Đề xuất hướng nghiên cứu : Searchable Encryption
 
-Vấn đề security liên quan:
-    Sử dụng mã hóa này để có thể tìm kiếm các mã hóa khác không có khả năng tìm kiếm trên chuỗi đã được mã hóa 
-    Tránh việc hacker tấn công và lấy được dữ liệu 
-    Encrytion database để bảo đảm thông tin được bảo mật 
+#4. Demo:
+  ##a. Đặt vấn đề (Introduction): 
+   + Tham khảo: Survey of Searchable Encryption
+   
+   + Why? :  Trong phần Introduction
+   
+   + Security: Server không đáng tin cậy, không thể đưa toàn bộ dữ liệu dưới dạng plaintext và tăng tính privacy của người dùng 
+	
+   + Performance: So với việc tìm kiếm thông thường
+	
+   + Pratical: Có áp dụng vào thực tế hay không ? (Hiện nay được sử dụng ở đâu)
+	
+   + Privacy : ??
+	
+  ##b. Ngữ cảnh: Secure the student database
+  
+  ##c. Giải pháp: 
 
-Phân công :
-    An : Kết nối SQL đến C++
-    Khoa, Huy : tìm hiểu về searchable 
+   Sử dụng Searchable Encryption để mã hóa
+	
+  ##d. Đề xuất ứng dụng: Tạo một app để demo việc mã hóa cơ sở dữ liệu
 
-Github : 
-    https://github.com/ManhKhoa1507/CryptoFinalProject
+  ##e. Ngôn ngữ sử dụng: C/C++(Viết thuật toán), C#(Kết nối với SQL, tạo UI/UX), SQL (Tạo cơ sở dữ liệu)
+
+#5. Tham khảo:
+   Link: 
+
+#6. Github: https://github.com/ManhKhoa1507/CryptoFinalProject
