@@ -23,7 +23,7 @@
    + Pratical: Có áp dụng vào thực tế hay không ? (Hiện nay được sử dụng ở đâu)
 	
   ## b. Ngữ cảnh: 
-    Secure the student database
+   Secure the student database
   
   ## c. Giải pháp: 
 
