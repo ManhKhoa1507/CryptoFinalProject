@@ -8,7 +8,8 @@
    
    + Huy: Tìm hiểu thuật toán Searchable Encryption, Trap door, Powerpoint
 
-# 3. Đề xuất hướng nghiên cứu : Searchable Encryption
+# 3. Đề xuất hướng nghiên cứu : 
+   Searchable Encryption
 
 # 4. Demo:
   ## a. Đặt vấn đề (Introduction): 
