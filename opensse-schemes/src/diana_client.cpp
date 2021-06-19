@@ -17,11 +17,32 @@
 #include <unistd.h>
 
 #include <iostream>
+using std::string;
+using std::cout;
+using std::endl; 
+
 #include <list>
 #include <mutex>
 
 __thread std::list<std::pair<std::string, uint64_t>>* g_diana_buffer_list_
     = nullptr;
+
+void RunDatabase(std::string client_db)
+{
+    // Run the given database
+    // If empty run the default database : test.dcdb
+    if (client_db.empty()) {
+        sse::logger::logger()->warn(
+            "Client database not specified. Using \'test.dcdb\' by default");
+        client_db = "test.dcdb";
+    } 
+
+    // Run the given database     
+    else {
+        sse::logger::logger()->info("Running client with database "
+                                    + client_db);
+    }
+}
 
 int main(int argc, char** argv)
 {
@@ -42,24 +63,24 @@ int main(int argc, char** argv)
 
     while ((c = getopt(argc, argv, "l:b:dr:q")) != -1) {
         switch (c) {
-        
-        // Option -l to load the file.json : load the reversed index file.json and add it to the database 
+        // Option -l to load the file.json : load the reversed index file.json
+        // and add it to the database
         case 'l':
             input_files.emplace_back(optarg);
             break;
 
-        // Option -b to use the file as the client database 
+        // Option -b to use the file as the client database
         case 'b':
             client_db = std::string(optarg);
             break;
 
         // Option -d to load the default file for debugging
         // Input_files.push_back("/Volumes/Storage/WP_Inverted/inverted_index_all_sizes/inverted_index_10000.json");
-        case 'd': 
+        case 'd':
             input_files.emplace_back(
-                "/Users/raphaelbost/Documents/inverted_index_1000.json");
+                "~Desktop/Code/DoAnCrypto/inverted_index.json");
             break;
-        
+
         // Option -q to check if print the result or not
         case 'q':
             print_results = false;
@@ -72,27 +93,27 @@ int main(int argc, char** argv)
             // atol(optarg);
             break;
 
-        // Handle with invalid options 
+        // Handle with invalid options
         case '?':
 
-            // Without argument 
+            // Without argument
             if (optopt == 'l' || optopt == 'b' || optopt == 'o' || optopt == 'i'
                 || optopt == 't' || optopt == 'r') {
                 fprintf(stderr, "Option -%c requires an argument.\n", optopt);
-            } 
-            
+            }
+
             // Unknown options
             else if (isprint(optopt) != 0) {
                 fprintf(stderr, "Unknown option `-%c'.\n", optopt);
-            } 
-            
+            }
+
             // Unknown the option character
             else {
                 fprintf(stderr, "Unknown option character `\\x%x'.\n", optopt);
             }
 
             return 1;
-        
+
         default:
             exit(-1);
         }
@@ -103,21 +124,17 @@ int main(int argc, char** argv)
         keywords.emplace_back(argv[index]);
     }
 
-    if (client_db.empty()) {
-        sse::logger::logger()->warn(
-            "Client database not specified. Using \'test.dcdb\' by default");
-        client_db = "test.dcdb";
-    } else {
-        sse::logger::logger()->info("Running client with database "
-                                    + client_db);
-    }
+    // Run the database
+    RunDatabase(client_db);
 
+    // Run the client in localhost:4240
     std::unique_ptr<sse::diana::DianaClientRunner> client_runner;
 
     std::shared_ptr<grpc::Channel> channel(grpc::CreateChannel(
         "localhost:4240", grpc::InsecureChannelCredentials()));
     client_runner.reset(new sse::diana::DianaClientRunner(channel, client_db));
 
+    // Load the default file for debugging
     for (std::string& path : input_files) {
         sse::logger::logger()->info("Load file " + path);
         client_runner->load_inverted_index(path);
@@ -142,11 +159,13 @@ int main(int argc, char** argv)
             }
         };
 
+        // Update the session 
         client_runner->start_update_session();
         sse::sophos::gen_db(rnd_entries_count, gen_callback);
         client_runner->end_update_session();
     }
 
+    // Searching the keyword 
     for (std::string& kw : keywords) {
         std::cout << "-------------- Search --------------" << std::endl;
 
@@ -154,10 +173,12 @@ int main(int argc, char** argv)
         bool       first = true;
 
         auto print_callback = [&out_mtx, &first, print_results](uint64_t res) {
-            if (print_results) {
+            if (print_results)
+             {
                 out_mtx.lock();
 
-                if (!first) {
+                if (!first) 
+                {
                     std::cout << ", ";
                 }
                 first = false;
@@ -175,9 +196,7 @@ int main(int argc, char** argv)
     }
 
     client_runner.reset();
-
     sse::crypto::cleanup_crypto_lib();
-
 
     return 0;
 }

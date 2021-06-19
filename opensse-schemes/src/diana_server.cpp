@@ -43,6 +43,23 @@ void AsyncSearch(bool async_search)
     }
 }
 
+void RunDatabase(std::string server_db)
+{
+    // Run the default database (test.dsdb)
+    if (server_db.empty()) {
+        sse::logger::logger()->warn(
+            "Server database not specified. Using \'test.dsdb\' by default");
+        server_db = "test.dsdb";
+    }
+
+    // Run the given database
+    else {
+        sse::logger::logger()->info("Running server with database "
+                                    + server_db);
+    }
+
+}
+
 
 int main(int argc, char** argv)
 {
@@ -96,21 +113,11 @@ int main(int argc, char** argv)
         }
     }
 
-
+    // Use async_search
     AsyncSearch(async_search);
 
-    // Run the default database (test.dsdb)
-    if (server_db.empty()) {
-        sse::logger::logger()->warn(
-            "Server database not specified. Using \'test.dsdb\' by default");
-        server_db = "test.dsdb";
-    }
-
-    // Run the given database
-    else {
-        sse::logger::logger()->info("Running server with database "
-                                    + server_db);
-    }
+    // Run the database
+    RunDatabase(server_db);
 
     // Run the server in 0.0.0.0:4241
 
