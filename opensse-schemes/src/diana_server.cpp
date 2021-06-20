@@ -60,7 +60,6 @@ void RunDatabase(std::string server_db)
 
 }
 
-
 int main(int argc, char** argv)
 {
     sse::logger::set_logging_level(spdlog::level::info);
@@ -91,7 +90,7 @@ int main(int argc, char** argv)
         case 's':
             async_search = false;
             break;
-
+    
         case '?':
             if (optopt == 'i') {
                 fprintf(stderr, "Option -%c requires an argument.\n", optopt);

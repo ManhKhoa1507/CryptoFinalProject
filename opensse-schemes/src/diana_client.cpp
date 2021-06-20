@@ -63,6 +63,7 @@ int main(int argc, char** argv)
 
     while ((c = getopt(argc, argv, "l:b:dr:q")) != -1) {
         switch (c) {
+            
         // Option -l to load the file.json : load the reversed index file.json
         // and add it to the database
         case 'l':
@@ -78,7 +79,7 @@ int main(int argc, char** argv)
         // Input_files.push_back("/Volumes/Storage/WP_Inverted/inverted_index_all_sizes/inverted_index_10000.json");
         case 'd':
             input_files.emplace_back(
-                "~Desktop/Code/DoAnCrypto/inverted_index.json");
+                "~/Desktop/Code/DoAnCrypto/inverted_index.json");
             break;
 
         // Option -q to check if print the result or not

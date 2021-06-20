@@ -22,23 +22,27 @@ using namespace std;
 
 void test_client_server()
 {
+    // Test the client and server
     sse::logger::set_logging_level(spdlog::level::debug);
 
     string client_master_key_path          = "diana_derivation_master.key";
     string client_kw_token_master_key_path = "diana_kw_token_master.key";
 
-
+    // Load the master_key and token_master_key
     ifstream client_master_key_in(client_master_key_path.c_str());
     ifstream client_kw_token_master_key_in(
         client_kw_token_master_key_path.c_str());
 
     typedef uint64_t index_type;
 
+    // Create client and server
     unique_ptr<DianaClient<index_type>> client;
     unique_ptr<DianaServer<index_type>> server;
 
+    // Update the request
     UpdateRequest<index_type> u_req;
 
+    // If the master_key and token_key is not good
     if ((client_kw_token_master_key_in.good() != client_master_key_in.good())) {
         client_master_key_in.close();
         client_kw_token_master_key_in.close();
@@ -46,6 +50,7 @@ void test_client_server()
         throw std::runtime_error("All streams are not in the same state");
     }
 
+    // Else if the master_key is good
     if (client_master_key_in.good() == true) {
         // the files exist
         cout << "Restart Diana client and server" << endl;
@@ -68,6 +73,7 @@ void test_client_server()
         std::copy(client_master_key.begin(),
                   client_master_key.end(),
                   client_master_key_array.begin());
+
         std::copy(client_kw_token_key.begin(),
                   client_kw_token_key.end(),
                   client_kw_token_key_array.begin());
@@ -82,7 +88,9 @@ void test_client_server()
 
         server.reset(new DianaServer<index_type>("diana_server.dat"));
 
-    } else {
+    }
+
+    else {
         cout << "Create new Diana client-server instances" << endl;
 
         // generate new keys
@@ -95,32 +103,33 @@ void test_client_server()
             = sse::crypto::random_bytes<uint8_t,
                                         DianaClient<index_type>::kKeySize>();
 
-
-        // write keys to files
-
+        // Write keys to files
+        // Write master_key
         ofstream client_master_key_out(client_master_key_path.c_str());
         client_master_key_out << std::string(master_derivation_key.begin(),
                                              master_derivation_key.end());
         client_master_key_out.close();
 
+        // Write token master key
         ofstream client_kw_token_master_key_out(
             client_kw_token_master_key_path.c_str());
         client_kw_token_master_key_out << std::string(
             kw_token_master_key.begin(), kw_token_master_key.end());
         client_kw_token_master_key_out.close();
 
-
+        // Reset the client and server
         client.reset(new DianaClient<index_type>(
             "diana_client.sav",
             sse::crypto::Key<DianaClient<index_type>::kKeySize>(
                 master_derivation_key.data()),
+
             sse::crypto::Key<DianaClient<index_type>::kKeySize>(
                 kw_token_master_key.data())));
 
         server.reset(new DianaServer<index_type>("diana_server.dat"));
 
-        // insert stuff
-
+        // insert stuff, insert the keyword "toto", "titi", "tata" with
+        // different index
         u_req = client->insertion_request("toto", 0);
         server->insert(u_req);
 
@@ -135,12 +144,16 @@ void test_client_server()
 
         u_req = client->insertion_request("tata", 0);
         server->insert(u_req);
+
+        u_req = client->insertion_request("cryptography", 0);
+        server->insert(u_req);
     }
 
 
     std::list<index_type> res;
     string                key;
 
+    // Search the keyword "toto"
     key = "toto";
     SearchRequest s_req(client->search_request(key));
     res = server->search(s_req);
@@ -150,8 +163,9 @@ void test_client_server()
     for (index_type i : res) {
         cout << i << ", ";
     }
-    cout << "]" << endl;
+    cout << "]" << endl << endl;
 
+    //  Search the keyword "titi"
     key   = "titi";
     s_req = client->search_request(key);
     res   = server->search(s_req);
@@ -160,8 +174,9 @@ void test_client_server()
     for (index_type i : res) {
         cout << i << ", ";
     }
-    cout << "]" << endl;
+    cout << "]" << endl << endl;
 
+    // Search the keyword "tata"
     key   = "tata";
     s_req = client->search_request(key);
     res   = server->search(s_req);
@@ -170,7 +185,29 @@ void test_client_server()
     for (index_type i : res) {
         cout << i << ", ";
     }
-    cout << "]" << endl;
+    cout << "]" << endl << endl;
+
+    // Search the keyword "cryptography"
+    key   = "cryptography";
+    s_req = client->search_request(key);
+    res   = server->search(s_req);
+
+    cout << "Search " << key << ". Results: [";
+    for (index_type i : res) {
+        cout << i << ", ";
+    }
+    cout << "]" << endl << endl;
+
+    // Search the keyword "crypto"
+    key   = "crypto";
+    s_req = client->search_request(key);
+    res   = server->search(s_req);
+
+    cout << "Search " << key << ". Results: [";
+    for (index_type i : res) {
+        cout << i << ", ";
+    }
+    cout << "]" << endl << endl;
 
     client_master_key_in.close();
     client_kw_token_master_key_in.close();
