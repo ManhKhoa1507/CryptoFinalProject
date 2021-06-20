@@ -1,11 +1,3 @@
-//
-//  test_diana
-//  diana
-//
-//  Created by Raphael Bost on 19/07/2016.
-//  Copyright © 2016 Raphael Bost. All rights reserved.
-//
-
 #include <sse/schemes/diana/diana_client.hpp>
 #include <sse/schemes/diana/diana_server.hpp>
 #include <sse/schemes/utils/logger.hpp>
@@ -25,6 +17,7 @@ void test_client_server()
     // Test the client and server
     sse::logger::set_logging_level(spdlog::level::debug);
 
+    // Define the key file
     string client_master_key_path          = "diana_derivation_master.key";
     string client_kw_token_master_key_path = "diana_kw_token_master.key";
 
