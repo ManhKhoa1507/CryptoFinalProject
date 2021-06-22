@@ -11,6 +11,8 @@
 
 See the [installation guide](https://github.com/grpc/grpc/blob/master/BUILDING.md)
 
+Note : use make -j4 instead of make -j
+
 #### Installing rocksdb
 
 See the [installation guide](https://github.com/facebook/rocksdb/blob/master/INSTALL.md)
@@ -18,6 +20,8 @@ See the [installation guide](https://github.com/facebook/rocksdb/blob/master/INS
 #### Installing crypto-tk
 
 See the [installation guide](https://github.com/OpenSSE/crypto-tk#building)
+
+Run the script in folder /install_dependencies 
 
 ## Building
  Building is done using CMake. The minimum required version is CMake 3.1.
@@ -31,7 +35,3 @@ chmod +x run.sh
 ## Contributing
 
 h3des, Nev, An
-
-
-
-
